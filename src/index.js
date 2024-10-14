@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+//Default export is the app package , and the remaining packages which are not exported are placed in {} brackets
+import App , {Welcome} from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <>Welcome</>
   </React.StrictMode>
 );
 
