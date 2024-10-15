@@ -1,8 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import Demo from './components/Demo';
-import Info from './components/info';
+import Info from './components/Info';
+import Counter from './components/counter';
+import Tableview from './components/Tableview';
+import Registration from './components/Registration';
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   let member = "Shubham";
@@ -27,10 +32,14 @@ function App() {
   return (
     // App returns two elements. To ensure that only one root element is returned, 
     // we can wrap them in a div tag or use empty tags (React Fragments) to return multiple elements.
-    <div>
+   //classname is marked as app for styling,Inherint property for react
+   <div className="App">
       <h1>Hello......</h1>
-      <Demo participant={member1} changefunction={changeName} />
+      {/* <Demo participant={member1} changefunction={changeName} />
       <Info participant={member} />
+      <Counter/> */}
+  <Tableview/>
+  <Registration/>
     </div>
   );
 }
