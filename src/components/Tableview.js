@@ -1,17 +1,43 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
+import axios from 'axios';
 const emp = [
-    { empid: 1, name: 'Alice Johnson', designation: 'Software Engineer', color: '#FFCCCC' },
-    { empid: 2, name: 'Bob Smith', designation: 'Product Manager', color: '#CCFFCC' },
-    { empid: 3, name: 'Charlie Lee', designation: 'UI/UX Designer', color: '#CCCCFF' },
-    { empid: 4, name: 'Diana White', designation: 'QA Engineer', color: '#FFCC99' },
-    { empid: 5, name: 'Eve Davis', designation: 'DevOps Engineer', color: '#99CCFF' }
+  {
+    id: "cd34",
+    name: "Shubham Srivastava",
+    mobile: "08587848703",
+    email: "a@gmail.com",
+    password: "213131313",
+    color: "#99CCFF"
+  },
+  {
+    id: "d648",
+    name: "Shubham Srivastava",
+    mobile: "08587848703",
+    email: "a@gmail.com",
+    password: "213131313",
+    color: "#99CCFF"
+  }
   ];
+
+  
 function Tableview() {
     // The employeeList state is initialized with the employees array.
     //  This state will be used to dynamically reorder the cards during 
     // the drag-and-drop operation. setEmployeeList is used to update the employee list.
 
-    const [employeeList, setEmployeeList] = useState(emp); // Use state for employee list
+    const [employeeList, setEmployeeList] = useState([]); // Use state for employee list
+    useEffect(()=>{
+      axios.get("http://localhost:4000/empdatabase").then((resp)=>{   
+        console.log(resp.data);  
+         setEmployeeList(resp.data);
+       
+      
+      }).catch((error)=>{
+        alert("error")
+
+    })
+     
+    })
     //This function starts when the user starts dragging it 
     // The index of the dragged card is stored in the dataTransfer object so that it can be accessed later during the drop event.
     const handleDragStart =(e, index)=>{
@@ -95,13 +121,11 @@ function Tableview() {
 //     //   </table> */} 
 //     </div>
 //     </div>
-<div className='container' style={{ justifyContent: "center" }}>
+ <div className='container' style={{ justifyContent: "center" }}>
       <h1>Employee Data Table</h1>
-      <div style={{ display: 'flex', alignContent: "center", flexWrap: "wrap" }}>
+      <div style={{ display: 'flex', flexWrap: "wrap" }}>
         {
           employeeList.map((employee, index) => {
-           
-
             return (
               <div
                 className="card"
@@ -122,16 +146,16 @@ function Tableview() {
                   Employee Data
                 </div>
                 <ul className="list-group list-group-flush" style={{ padding: "10px" }}>
-                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee ID: {employee.empid}</li>
                   <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee Name: {employee.name}</li>
-                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee Designation: {employee.designation}</li>
+                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee mobile: {employee.mobile}</li>
+                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee Email: {employee.email}</li>
                 </ul>
               </div>
             );
           })
         }
       </div>
-    </div>
+    </div> 
 
   )
 }

@@ -35,11 +35,10 @@ function App() {
    //classname is marked as app for styling,Inherint property for react
    <div className="App">
       <h1>Hello......</h1>
-      {/* <Demo participant={member1} changefunction={changeName} />
-      <Info participant={member} />
-      <Counter/> */}
+      <div className='split-screen'>
   <Tableview/>
   <Registration/>
+  </div>
     </div>
   );
 }

@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+/* Split screen layout */
+.split-screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Adjust width for each component */
+.split-screen > * {
+  flex: 1;
+  min-width: 45%;
+}
