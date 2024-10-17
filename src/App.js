@@ -7,7 +7,8 @@ import Tableview from './components/Tableview';
 import Registration from './components/Registration';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import NavComponent from './components/NavComponent';
 
 function App() {
   let member = "Shubham";
@@ -33,19 +34,21 @@ function App() {
     // App returns two elements. To ensure that only one root element is returned, 
     // we can wrap them in a div tag or use empty tags (React Fragments) to return multiple elements.
    //classname is marked as app for styling,Inherint property for react
+   <BrowserRouter>
+   <NavComponent/>
    <div className="App">
-      <h1>Hello......</h1>
+      {/* <h1>Hello......</h1> */}
       <div className='split-screen'>
-  <Tableview/>
-  <Registration/>
+        <Routes>
+          <Route path='/table' element= {<Tableview/>}/>
+
+          <Route path='/registeration' element= {<Registration/>}/>
+          <Route path='registeration/:id' element={<Registration />} />        
+            {/* <Route path='/database' element= {"http://localhost:4000/empdatabase"}/> */}
+        </Routes>
   </div>
     </div>
-  );
-}
-
-function Welcome() {
-  return (
-    <h1>Welcome.....</h1>
+    </BrowserRouter>
   );
 }
 

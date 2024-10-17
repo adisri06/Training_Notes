@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 const emp = [
   {
@@ -21,23 +22,56 @@ const emp = [
 
   
 function Tableview() {
+  const navigate = useNavigate();
+
     // The employeeList state is initialized with the employees array.
     //  This state will be used to dynamically reorder the cards during 
     // the drag-and-drop operation. setEmployeeList is used to update the employee list.
 
     const [employeeList, setEmployeeList] = useState([]); // Use state for employee list
     useEffect(()=>{
+      console.log('hellp');
       axios.get("http://localhost:4000/empdatabase").then((resp)=>{   
-        console.log(resp.data);  
-         setEmployeeList(resp.data);
-       
-      
+         setEmployeeList(resp.data);   
       }).catch((error)=>{
         alert("error")
-
+//[] will tell use effect that run only once the certain params inside the state changes
+//It will rerendered during the recycle methods so basically at 4 stages.
+// if i put [employeelist] in the bracket then it will be rendered when the value of the employee ~list changes
     })
-     
-    })
+    },[])
+    function handleDelete(id){
+      console.log(id)
+      axios.delete(`http://localhost:4000/empdatabase/${id}`).then((resp)=>{
+        // alert(`Details of Employee with id ${id} is deleted `)
+        setEmployeeList(employeeList.filter((data)=>data.id !== id))
+      }).catch((err)=>{
+        alert('Delete failute', err.message)
+      })
+    }
+    function handleUpdate(id){
+      console.log("call for update with ",id)
+      navigate(`/registeration/${id}`)
+    }
+    const handleColorChange = (id, e) => {
+      e.preventDefault(); // Prevent page refresh
+      const newColor = e.target.value;
+     const updatelist = employeeList.find(emp =>emp.id === id)
+     if(!updatelist){return}
+     const updatedemployee ={...updatelist, color: newColor}
+     const updateemployeelist = employeeList.map(emp=> emp.id ===id? updatedemployee :emp)
+      setEmployeeList(updateemployeelist);
+      updateColorInDatabase(id, updatedemployee);     
+    }
+    const updateColorInDatabase = (id, updatedemployee) => {
+      axios.put(`http://localhost:4000/empdatabase/${id}`, updatedemployee )
+        .then(() => {
+          console.log("Color updated successfully");
+        })
+        .catch((error) => {
+          alert("Error updating color: " + error.message);
+        });
+    };
     //This function starts when the user starts dragging it 
     // The index of the dragged card is stored in the dataTransfer object so that it can be accessed later during the drop event.
     const handleDragStart =(e, index)=>{
@@ -128,27 +162,68 @@ function Tableview() {
           employeeList.map((employee, index) => {
             return (
               <div
-                className="card"
-                style={{ 
-                    width: "18rem", 
-                    backgroundColor: employee.color, // Color tied to the employee data
-                    margin: "10px", 
-                    border: "none", 
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" 
-                  }}
-                  draggable // Makes the card draggable
-                  onDragStart={(e) => handleDragStart(e, index)} // Called when drag starts
-                  onDragOver={handleDragOver} // Allows the card to be dragged over other cards
-                  onDrop={(e) => handleDrop(e, index)} // Called when the card is dropped
-                  key={index} // Unique key to identify each card
+                className='card'
+                style={{
+                  width: "18rem",
+                  backgroundColor: employee.color, // Color tied to the employee data
+                  margin: "10px",
+                  border: "none",
+                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                }}
+                draggable // Makes the card draggable
+                onDragStart={(e) => handleDragStart(e, index)} // Called when drag starts
+                onDragOver={handleDragOver} // Allows the card to be dragged over other cards
+                onDrop={(e) => handleDrop(e, index)} // Called when the card is dropped
+                key={index} // Unique key to identify each card
               >
-                <div className="card-header" style={{ fontWeight: "bold", fontSize: "1.25rem", textAlign: "center" }}>
+                <div
+                  className='card-header'
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "1.25rem",
+                    textAlign: "center",
+                  }}>
                   Employee Data
                 </div>
-                <ul className="list-group list-group-flush" style={{ padding: "10px" }}>
-                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee Name: {employee.name}</li>
-                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee mobile: {employee.mobile}</li>
-                  <li className="list-group-item" style={{ backgroundColor: "transparent", border: "none" }}>Employee Email: {employee.email}</li>
+                <ul
+                  className='list-group list-group-flush'
+                  style={{ padding: "10px" }}>
+                  <li
+                    className='list-group-item'
+                    style={{ backgroundColor: "transparent", border: "none" }}>
+                    Employee Name: {employee.name}
+                  </li>
+                  <li
+                    className='list-group-item'
+                    style={{ backgroundColor: "transparent", border: "none" }}>
+                    Employee mobile: {employee.mobile}
+                  </li>
+            
+                  <li
+                    className='list-group-item'
+                    style={{ backgroundColor: "transparent", border: "none" }}>
+                    Employee Email: {employee.email}
+                    </li>
+                    <li className='d-flex align-items-center ps-5 pt-5'>
+                      <button
+                        className='btn btn-danger me-2'
+                        onClick={() => handleDelete(employee.id)}>
+                        Delete
+                      </button>
+                      <button
+                        className='btn btn-info'
+                        onClick={() => handleUpdate(employee.id)}>
+                        Update
+                      </button>
+                  </li>
+                  <label>
+            
+            <input
+              type="color"
+              value={employee.color}
+              onChange={(e) => handleColorChange(employee.id, e)}
+            />
+          </label>
                 </ul>
               </div>
             );

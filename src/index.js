@@ -4,13 +4,14 @@ import './index.css';
 //Default export is the app package , and the remaining packages which are not exported are placed in {} brackets
 import App , {Welcome} from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <React.Fragment>
     <App />
-    <>Welcome</>
-  </React.StrictMode>
+  </React.Fragment>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

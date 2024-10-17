@@ -55,3 +55,24 @@
     font-size: 12px;
     margin-top: 5px;
   }
+  .button-container {
+    display: flex;
+    justify-content: center;  /* Center the buttons horizontally */
+    margin-top: 20px;         /* Adds space between the buttons and the table */
+    width: 100%;              /* Ensures the container spans the full width of the parent */
+  }
+  
+  .btn-small {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 0 5px;            /* Adds space between the buttons */
+    box-sizing: border-box;    /* Ensures padding doesn't affect button size */
+  }
+  .header {
+    text-align: center;
+    font-size: 2.5rem; /* Increase font size */
+    color: #4A90E2; /* Set a nice color */
+    margin-bottom: 20px; /* Add some space below */
+    font-weight: bold; /* Make it bold */
+    text-transform: uppercase; /* Transform text to uppercase */
+}

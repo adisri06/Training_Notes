@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/Registration.css'; // Import the external CSS file
 import axios from "axios"
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Registration = () => {
+  const { id: paramId } = useParams(); // Get id from URL params
+  const [id, setId] = useState(paramId); // State for id
+  const navigate = useNavigate();
+
   // Initialize state for form data (name, mobile, email, password)
   const [empData, setEmpData] = useState({
     name: '',
@@ -11,7 +17,24 @@ const Registration = () => {
     password: '',
     color: '#FFCC99'
   });
-
+  useEffect(()=>{
+    setId(null);
+    console.log("get api call id",id);
+    if(id){
+    axios.get(`http://localhost:4000/empdatabase/${id}`).then((resp)=>{  
+        console.log(resp) 
+        setEmpData(resp.data);   
+    }).catch((error)=>{
+      alert(error)
+//[] will tell use effect that run only once the certain params inside the state changes
+//It will rerendered during the recycle methods so basically at 4 stages.
+// if i put [employeelist] in the bracket then it will be rendered when the value of the employee ~list changes
+  })
+  }
+  else {
+  reset()
+  }},[paramId])
+  
   // Initialize state for storing error messages for each field
   const [errempData, setErrEmpData] = useState({
     errname: '',
@@ -19,7 +42,18 @@ const Registration = () => {
     erremail: '',
     errpassword: '',
   });
-
+  function reset() {
+    setEmpData({
+      name: '',
+      mobile: '',
+      email: '',
+      password: '',
+      color: '#FFCC99'
+    });
+  }
+  // function update(){
+  //   axios.put()
+  // }
   // Update state whenever the user inputs values in the form fields
   const handleChange = (event) => {
     const { name, value } = event.target; // Get name and value of the input field
@@ -81,13 +115,25 @@ const Registration = () => {
   
     // Check if all form fields are filled and no errors are present
     if (Object.values(empData).every(item => item !== "") && !isErrorPresent) {
+      if(!paramId){
         axios.post("http://localhost:4000/empdatabase", empData).then((res)=>{
             alert("Form Submitted");
         }).catch((error)=>{
             alert(error.message);
 
+        })}
+        else{
+          console.log("updating for id", paramId)
+          axios.put(`http://localhost:4000/empdatabase/${paramId}`,empData).then((res)=>{
+            alert("Values updated");
+        }).catch((error)=>{
+            alert(error.message);
+
         })
+        }
       console.log('Form submitted:', empData); // Log the form data
+      navigate('/table')
+
     } else{
         alert("please fill out all the form fields")
     }
@@ -95,8 +141,9 @@ const Registration = () => {
 
   return (
     <div className="container">
-      <h1>Registration Form</h1>
-      <form onSubmit={handleSubmit} className="registration-form">
+      <h1  className='header'>{paramId? "Update Form": "Registeration form"}</h1>
+      {/* <h1>Registration Form</h1> */}
+      <form onSubmit={handleSubmit} className="registration-form" onReset={reset}>
         <div className="form-group">
           <label>
             Name:
@@ -166,7 +213,11 @@ const Registration = () => {
         </div>
 
         {/* Submit button */}
-        <button type="submit">Submit</button>
+        <div className="button-container">
+
+    <button type="submit" className="btn-small"> {paramId ? "Update" :"Submit"}</button>
+    <button type="reset" className="btn-small">Reset</button>
+    </div>
       </form>
     </div>
   );
