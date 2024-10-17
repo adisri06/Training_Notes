@@ -1,0 +1,51 @@
+Virtual DOM Overview:
+
+	1.	Tree-like structure: Updates only the necessary part of the DOM (e.g., hitting a like button doesn’t refresh the entire page).
+	2.	Diffing Algorithm: Used earlier to compare actual and virtual DOM, ensuring efficient updates.
+	•	It maintained a copy of virtual memory.
+	•	Replaced by React Fiber architecture after React 17.
+	3.	React: A library, not a framework (unlike Angular).
+	4.	Unidirectional Data Flow: Data always flows in one direction in React.
+	5.	MVC Architecture: React handles the view, while Node.js manages the model and control. In Angular, everything is handled internally.
+	6.	Reconciliation: The diffing algorithm compared nodes in the actual and virtual DOM until React 17. React Fiber now handles this process.
+
+React Project Architecture:
+
+	1.	Package.json: Acts like the index of a book, listing all the packages used in the application.
+	2.	Package-lock.json: Stores installed packages and their versions, including internal dependencies.
+	3.	Public Folder: Contains index.html, the entry point of the application with meta-tags and a <div> tag where React mounts the app (src -> index.js calls the root method).
+
+Webpack:
+
+	•	Bundler: Compiles multiple JavaScript files into one, runs the app when npm start is triggered.
+	•	Ensures successful compilation and execution on the host.
+
+Babel Package:
+
+	•	JavaScript Compiler: Converts modern JavaScript commands into browser-compatible formats.
+
+React DOM:
+
+	•	No pointer concept in React. Child component props can be modified without affecting the global state.
+	•	Button clicks or similar actions only update relevant parts of the DOM without causing a global state or DOM change.
+
+ {/* we cant use for / while loop in the react because babel compiler is not designed
+            for these type of loops
+            map method worl, for each work but traditional methods will not work 
+            inside jsx it will not work for eg it will work before return if there is seprate function where only calculation and logics are present 
+            then it will work*/}
+
+Debounce method: google starts searching when we click 2/3 words 
+
+npx json-server --watch db.json --port 4000
+
+4 stages of an variable:
+ 1. Initialisation of a variable for eg: const [useState, setEmployee] = useState([])
+ 2. When an variable is hosted on a application MEANS its utitilised , it can be updted using use effect hook ,Its value can be mapped 
+ 3. Mounting of a variable
+ 4. Unmounting of a variable
+
+
+The reason why "hellp" is printed twice in the console when using useEffect is most likely due to React’s Strict Mode. Strict Mode in React runs certain lifecycle methods (like useEffect) twice in development mode to help detect potential side effects or errors in your code. This is a development-only feature to help identify unexpected side effects, and it doesn’t happen in production.
+Why does this happen?
+React’s Strict Mode in development has a behavior where useEffect and other lifecycle methods are intentionally called twice to ensure that the side effects (like console.log or API calls) are idempotent (i.e., they should produce the same result without unintended consequences when run multiple times).
