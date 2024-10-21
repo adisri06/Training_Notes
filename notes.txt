@@ -49,3 +49,41 @@ npx json-server --watch db.json --port 4000
 The reason why "hellp" is printed twice in the console when using useEffect is most likely due to React’s Strict Mode. Strict Mode in React runs certain lifecycle methods (like useEffect) twice in development mode to help detect potential side effects or errors in your code. This is a development-only feature to help identify unexpected side effects, and it doesn’t happen in production.
 Why does this happen?
 React’s Strict Mode in development has a behavior where useEffect and other lifecycle methods are intentionally called twice to ensure that the side effects (like console.log or API calls) are idempotent (i.e., they should produce the same result without unintended consequences when run multiple times).
+
+Redux:
+	1.	React Components: Handle their own state locally.
+	•	Redux: Manages state in a centralized way, preventing direct state changes by components.
+	•	Action: A JavaScript object that describes an event.
+		•	It must have a type (describing the action).
+		•	It can have payload (optional data that comes with the action).
+	Action Creators: Convenient functions that return action objects.
+	•	Not mandatory, but useful for:
+	•	Maintainability
+	•	Abstraction
+	•	Encapsulation
+	•	Testability
+
+	Reducers:
+	•	State modification in Redux is handled by reducers, not components.
+	•	Reducers ensure immutability by creating and returning a modified copy of the state.
+	•	They respond to actions and modify state accordingly.
+	Forbidden in Reducers:
+	1. Mutating the arguments passed
+	2.Performing side effects like API calls, AJAX call, etc
+	3.Calling other non-pure functions (Ex: date.now(), Math.random())
+
+	•	Modularity: Use multiple reducers to manage different parts of the state.
+	•	Single Reducer for Store: Only one reducer can be passed to createStore().
+	•	combineReducers(): Combines multiple reducers into one function for createStore().
+	•	Action Flow: Actions reach the root reducer first, then all child reducers.
+	•	State Combination: The root reducer combines the states from all reducers and updates the store with a new state object.
+	
+	Store: Holds the entire state of the application.
+		•	Creating a Store: A store is created using a reducer. 
+		The reducer manages state changes and updates the store with the latest state.	
+		Store Methods:
+	1.	getState(): Returns the current state.
+	2.	dispatch(action): Dispatches an action to update the state (triggered by events in React components).
+	3.	subscribe(listener): Registers listeners to respond to state changes.
+	•	Important: You can’t directly change the store’s data. State is updated only through actions, which are handled by reducers.
+
