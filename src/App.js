@@ -5,6 +5,7 @@ import Info from './components/Info';
 import Counter from './components/counter';
 import Tableview from './components/Tableview';
 import Registration from './components/Registration';
+import Prompt from './components/Prompt.js';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
@@ -43,7 +44,9 @@ function App() {
           <Route path='/table' element= {<Tableview/>}/>
 
           <Route path='/registeration' element= {<Registration/>}/>
-          <Route path='registeration/:id' element={<Registration />} />        
+          <Route path='registeration/:id' element={<Registration />} />   
+          <Route path='/' element={<Prompt/>} />        
+     
             {/* <Route path='/database' element= {"http://localhost:4000/empdatabase"}/> */}
         </Routes>
   </div>

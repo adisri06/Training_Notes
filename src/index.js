@@ -5,12 +5,16 @@ import './index.css';
 import App , {Welcome} from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import reducer from './reducers/reducers';
+import { legacy_createStore as createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+var store = createStore(reducer)
 root.render(
-  <React.Fragment>
+  <Provider store= {store}>
     <App />
-  </React.Fragment>
+  </Provider>
   
 );
 

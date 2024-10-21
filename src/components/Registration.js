@@ -3,6 +3,8 @@ import '../css/Registration.css'; // Import the external CSS file
 import axios from "axios"
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from '../actions/actions';
 
 const Registration = () => {
   const { id: paramId } = useParams(); // Get id from URL params
