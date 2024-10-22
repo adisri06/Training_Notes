@@ -87,3 +87,28 @@ Redux:
 	3.	subscribe(listener): Registers listeners to respond to state changes.
 	•	Important: You can’t directly change the store’s data. State is updated only through actions, which are handled by reducers.
 
+	Middleware in Redux - Key Points
+
+	•	Not a Pure Function: Middleware can have side effects, unlike reducers.
+	•	Use Cases:
+		•	Adds functionality between action and reducer.
+		•	Centralizes database-related actions (e.g., AJAX calls).
+		•	Pre-processes actions (validates or modifies).
+		•	Facilitates debugging.
+		•	Reduces boilerplate in actions, leading to fewer tests.
+		•	API calls happen through middleware, making it easy to debug mistakes.
+		•	Popular Libraries:
+		•	Redux Thunk
+		•	Redux Saga
+		•	Common Requirement: Enables asynchronous actions and wraps the store’s dispatch method.
+	•	Middleware Execution: Receives store’s dispatch and getState as arguments and returns a function.
+		const customMiddleware = store => next => action => {
+		...
+		}
+
+	•	Execution Flow:
+	•	Receives the store, returns a function that takes next, which in turn returns a function that takes action.
+	•	next: Invoked when the middleware completes its task; it passes the action to the next middleware or reducer.
+	•	action: The action currently being dispatched.
+	•	Access to Store:
+	•	Middleware has access to getState() to fetch the current state and dispatch() to dispatch further actions if needed.
