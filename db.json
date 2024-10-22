@@ -2,7 +2,7 @@
   "empdatabase": [
     {
       "id": "a2fa",
-      "name": "Mom",
+      "name": "Mom1",
       "mobile": "9999089693",
       "email": "444341231@23213.com",
       "password": "dad23342",
@@ -22,7 +22,7 @@
       "mobile": "08587848703",
       "email": "a@gmail.com",
       "password": "213131313",
-      "color": "#99CCFF"
+      "color": "#ccff99"
     },
     {
       "id": "d648",
@@ -37,6 +37,30 @@
       "name": "Shubham Srivastava",
       "mobile": "9999089693",
       "email": "a@gmail.com",
+      "password": "213131313",
+      "color": "#FFCC99"
+    },
+    {
+      "id": "34af",
+      "name": "Shubham Srivastava",
+      "mobile": "08587848703",
+      "email": "a231@gmail.com",
+      "password": "213131313",
+      "color": "#e58a2e"
+    },
+    {
+      "id": "f07d",
+      "name": "Shubham Srivastava",
+      "mobile": "08587848703",
+      "email": "av@gmail.com",
+      "password": "213131313",
+      "color": "#FFCC99"
+    },
+    {
+      "id": "70f2",
+      "name": "Shubham Srivastava",
+      "mobile": "08587848703",
+      "email": "afafgaa@gmail.com",
       "password": "213131313",
       "color": "#FFCC99"
     }

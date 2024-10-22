@@ -1,10 +1,10 @@
-const CounterReducer=(state={count:0},action)=>{
+const CounterReducer=(state={count:1},action)=>{
     switch(action.type){
-        case "INCREMENT":
-     
+
+        case "INCREMENT":    
             return{...state,count:state.count+parseInt(action.step)}
         case "DECREMENT":
-             return{...state,count:state.count-parseInt(action.step)}
+            return{...state,count:state.count-parseInt(action.step)}
         default:
              return state
     }

@@ -6,7 +6,7 @@ import { increment,decrement } from "../actions/actions";
 
 function Prompt() {
     const [step,setStep]=useState(0);
-    const counter = useSelector(state=>state.count);
+    const counter = useSelector(state=>state.counter.count);
     const dispatch = useDispatch();
   return (
     <>

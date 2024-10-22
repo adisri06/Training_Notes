@@ -4,13 +4,15 @@ import axios from "axios"
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
 import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '../actions/actions';
+import { checkDuplicateAndSubmit, fetchRecordCount,resetError,updateRecord } from '../actions/actions';
 
 const Registration = () => {
   const { id: paramId } = useParams(); // Get id from URL params
   const [id, setId] = useState(paramId); // State for id
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const records = useSelector((state) => state.registeration.records);
+  const error = useSelector((state) => state.registeration.error);
   // Initialize state for form data (name, mobile, email, password)
   const [empData, setEmpData] = useState({
     name: '',
@@ -19,23 +21,30 @@ const Registration = () => {
     password: '',
     color: '#FFCC99'
   });
-  useEffect(()=>{
+  useEffect(() => {
     setId(null);
-    console.log("get api call id",id);
-    if(id){
-    axios.get(`http://localhost:4000/empdatabase/${id}`).then((resp)=>{  
-        console.log(resp) 
-        setEmpData(resp.data);   
-    }).catch((error)=>{
-      alert(error)
-//[] will tell use effect that run only once the certain params inside the state changes
-//It will rerendered during the recycle methods so basically at 4 stages.
-// if i put [employeelist] in the bracket then it will be rendered when the value of the employee ~list changes
-  })
-  }
-  else {
-  reset()
-  }},[paramId])
+    console.log("get api call id", id);
+    if (id) {
+      axios
+        .get(`http://localhost:4000/empdatabase/${id}`)
+        .then((resp) => {
+          console.log(resp);
+          setEmpData(resp.data);
+        })
+        .catch((error) => {
+          alert(error);
+          //[] will tell use effect that run only once the certain params inside the state changes
+          //It will rerendered during the recycle methods so basically at 4 stages.
+          // if i put [employeelist] in the bracket then it will be rendered when the value of the employee ~list changes
+        });
+    } else {
+      reset();
+    }
+  }, [paramId]);
+
+  useEffect(()=>{
+    dispatch(fetchRecordCount());
+  },[dispatch])
   
   // Initialize state for storing error messages for each field
   const [errempData, setErrEmpData] = useState({
@@ -52,6 +61,7 @@ const Registration = () => {
       password: '',
       color: '#FFCC99'
     });
+    dispatch(resetError())
   }
   // function update(){
   //   axios.put()
@@ -106,7 +116,7 @@ const Registration = () => {
   };
 
   // Handle form submission and prevent page reload
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page refresh
   
     // Trigger validation for all fields before submitting
@@ -118,23 +128,23 @@ const Registration = () => {
     // Check if all form fields are filled and no errors are present
     if (Object.values(empData).every(item => item !== "") && !isErrorPresent) {
       if(!paramId){
-        axios.post("http://localhost:4000/empdatabase", empData).then((res)=>{
-            alert("Form Submitted");
-        }).catch((error)=>{
-            alert(error.message);
-
-        })}
-        else{
-          console.log("updating for id", paramId)
-          axios.put(`http://localhost:4000/empdatabase/${paramId}`,empData).then((res)=>{
-            alert("Values updated");
-        }).catch((error)=>{
-            alert(error.message);
-
-        })
+        try {
+          await dispatch(checkDuplicateAndSubmit(empData));
+          navigate("/table"); // Navigate if successful
+        } catch (error) {
+          console.log("Submission failed:", error); // Log the error message properly
         }
-      console.log('Form submitted:', empData); // Log the form data
-      navigate('/table')
+      }
+        else{
+          try {
+            // Call updateRecord for updating an existing record
+            await dispatch(updateRecord(empData, paramId));
+            navigate("/table"); // Navigate if successful
+          } catch (error) {
+            console.log("Update failed:", error); // Log the error message properly
+          }
+        }
+      console.log('Form submitted:', empData); // Log the form data   
 
     } else{
         alert("please fill out all the form fields")
@@ -142,32 +152,39 @@ const Registration = () => {
   };
 
   return (
-    <div className="container">
-      <h1  className='header'>{paramId? "Update Form": "Registeration form"}</h1>
+    <div className='container'>
+      <h1 className='header'>
+        {paramId ? "Update Form" : "Registeration form"}
+      </h1>
       {/* <h1>Registration Form</h1> */}
-      <form onSubmit={handleSubmit} className="registration-form" onReset={reset}>
-        <div className="form-group">
+      <form
+        onSubmit={handleSubmit}
+        className='registration-form'
+        onReset={reset}>
+        <div className='form-group'>
           <label>
             Name:
             <input
-              type="text"
-              name="name"
+              type='text'
+              name='name'
               value={empData.name}
               onChange={handleChange} // Update state on change
               onBlur={checkData} // Validate on blur (when user leaves field)
               required // HTML5 validation
             />
             {/* Display error message for name if it exists */}
-            {errempData.errname && <p className="error">{errempData.errname}</p>}
+            {errempData.errname && (
+              <p className='error'>{errempData.errname}</p>
+            )}
           </label>
         </div>
 
-        <div className="form-group">
+        <div className='form-group'>
           <label>
             Mobile Number:
             <input
-              type="text" // Use type "text" to avoid browser-specific number validations
-              name="mobile"
+              type='text' // Use type "text" to avoid browser-specific number validations
+              name='mobile'
               value={empData.mobile}
               onChange={handleChange} // Update state on change
               onBlur={checkData} // Validate on blur
@@ -175,33 +192,35 @@ const Registration = () => {
             />
             {/* Display error message for mobile if it exists */}
             {errempData.errmobile && (
-              <p className="error">{errempData.errmobile}</p>
+              <p className='error'>{errempData.errmobile}</p>
             )}
           </label>
         </div>
 
-        <div className="form-group">
+        <div className='form-group'>
           <label>
             Email ID:
             <input
-              type="email"
-              name="email"
+              type='email'
+              name='email'
               value={empData.email}
               onChange={handleChange} // Update state on change
               onBlur={checkData} // Validate on blur
               required // HTML5 validation
             />
             {/* Display error message for email if it exists */}
-            {errempData.erremail && <p className="error">{errempData.erremail}</p>}
+            {errempData.erremail && (
+              <p className='error'>{errempData.erremail}</p>
+            )}
           </label>
         </div>
 
-        <div className="form-group">
+        <div className='form-group'>
           <label>
             Password:
             <input
-              type="password"
-              name="password"
+              type='password'
+              name='password'
               value={empData.password}
               onChange={handleChange} // Update state on change
               onBlur={checkData} // Validate on blur
@@ -209,18 +228,25 @@ const Registration = () => {
             />
             {/* Display error message for password if it exists */}
             {errempData.errpassword && (
-              <p className="error">{errempData.errpassword}</p>
+              <p className='error'>{errempData.errpassword}</p>
             )}
           </label>
         </div>
 
         {/* Submit button */}
-        <div className="button-container">
-
-    <button type="submit" className="btn-small"> {paramId ? "Update" :"Submit"}</button>
-    <button type="reset" className="btn-small">Reset</button>
-    </div>
+        <div className='button-container'>
+          <button type='submit' className='btn-small'>
+            {" "}
+            {paramId ? "Update" : "Submit"}
+          </button>
+          <button type='reset' className='btn-small'>
+            Reset
+          </button>
+        </div>
       </form>
+      <div>
+        {error && <p className="error">Error: {error}</p>} {/* Display error if exists */}
+    </div>
     </div>
   );
 };
