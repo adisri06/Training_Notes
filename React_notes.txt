@@ -1,0 +1,209 @@
+Fundamentals of libraries : React is a library 
+What is library ? 
+1. Library is a collection of prewritten code which provides us with reusable functions and code base,
+With this reusable code base we can target a specific tasks or functionalities .
+
+Framework : Angular is a framework ,
+What is framework ? 
+1. A framework is a comprehensive software development platform that provides the 
+foundation and structure for building entire applications. 
+Unlike libraries that offer specific functionalities, 
+frameworks impose a particular architecture and provide tools, libraries, and 
+guidelines to streamline the development process. Frameworks address broader concerns, 
+including handling user requests, managing data flow, and structuring the application's overall architecture.
+ Some popular examples of JavaScript frameworks include AngularJS, Ember JS, Svelte, and Vue.js.
+
+React Notes
+
+	•	Overview:
+	•	Developed by: Meta (formerly Facebook)
+	•	Purpose: To build dynamic, interactive user interfaces for web applications
+	•	Type: Open-source JavaScript library
+	•	Core Features:
+	1.	Component-Based Architecture:
+	•	Modular design with reusable components
+	•	Components represent specific UI elements (e.g., header, sidebar, footer)
+	•	Encapsulation of UI functionality in individual files for reusability
+	2.	Declarative Syntax:
+	•	Developers specify what the UI should do, rather than how it should operate
+	•	Automatically updates UI based on state or data changes
+	3.	Virtual DOM:
+	•	React maintains a virtual copy of the DOM
+	•	Efficiently updates only the necessary parts of the real DOM, boosting performance
+	4.	One-Way Data Binding:
+	•	Unidirectional data flow from parent to child components
+	•	Simplifies data management, reducing bugs due to state inconsistencies
+	5.	JavaScript XML (JSX):
+	•	JavaScript extension that enables HTML-like syntax within JavaScript
+	•	Simplifies creation and visualization of UI components
+	6.	Hooks:
+	•	Introduced in React 16.8
+	•	Facilitates state and lifecycle management within functional components
+	•	Simplifies logic, promotes code reuse, and eases management of stateful behavior
+	7. Resolves problems of cross browser issues .
+	8. React native : Similar to react and can help to create cross platform application.
+
+Creating a react project  (Either one of them )
+npx create-react-app my-react-app
+npm create vite@latest my-vite-app
+npm install 
+npm run dev
+
+Difference between both : 
+Here’s a quick comparison between Vite and Create React App (CRA) for interview prep:
+
+Vite vs. Create React App (CRA)
+
+1. Build Speed
+
+	•	Vite: Faster builds, near-instant dev server, fast HMR (Hot Module Replacement).
+	•	CRA: Slower initial build and reload times, especially in large projects.
+	Unlike CRA, which uses Webpack, Vite uses Rollup for bundling, resulting in faster build times and 
+	improved performance, especially for larger projects.
+
+Vite also supports various modern JavaScript features out of the box, such as TypeScript, JSX, and CSS preprocessors, without additional configuration.
+
+2. Configuration
+
+	•	Vite: Flexible, easy to customize with plugins, no “eject” needed.
+	•	CRA: Zero-config but restrictive; must “eject” to access deeper configs.
+
+3. Developer Experience
+
+	•	Vite: Smooth, fast HMR, supports modern JavaScript features.
+	•	CRA: Reliable but can be slow on reloads in larger projects.
+
+4. Ecosystem
+
+	•	Vite: Growing rapidly, multi-framework support (React, Vue, Svelte).
+	•	CRA: Established, extensive community, React-focused.
+
+5. Best For
+
+	•	Vite: Larger or modern React projects needing speed and scalability.
+	•	CRA: Small/medium projects, beginners needing simplicity.
+
+Summary:
+
+	•	Vite is better for performance, flexibility, and modern development.
+	•	CRA is good for straightforward, smaller apps without heavy customization needs.
+
+Folder Structure Notes
+
+	•	public directory
+	•	Contains static assets (e.g., HTML files, images, fonts).
+	•	index.html: Entry point for the React app.
+	•	src directory
+	•	Holds the source code for the React app.
+Key Files in src:
+	•	main.jsx: Entry point file that renders the root component into the HTML in the public directory.
+	•	App.jsx: Root component containing the main UI logic and other components.
+	•	App.css: Styles specific to App.jsx.
+	•	index.css: Global styles for the application.
+	•	Other Files
+	•	package.json: Holds project metadata, dependencies, and scripts for running, building, and testing the app.
+
+This structure provides a boilerplate setup for React projects, with organized folders for assets, core app files, and configuration.
+
+ES6 : EcmaScript 6
+
+Introduction to ES6 (ECMAScript 6)
+
+	1.	ECMAScript Overview
+	•	ECMAScript (ES) is a standard for JavaScript created by the ECMA standards organization.
+	•	ES6, released in 2015, introduced major updates.
+	•	Newer versions of ES are named by release year; the latest is ECMAScript 2020.
+	•	“ES.Next” refers to the upcoming ECMAScript version.
+	2.	Key ES6 Features
+	•	let and const: Alternatives to var with restricted scope.
+	•	let is block-scoped, restricting variable usage to the block it was defined in.
+	•	const defines constants whose values cannot be reassigned.
+	•	Arrow Functions: A shorter syntax for writing functions, offering cleaner, concise code.
+	•	Arrow functions can omit curly braces and the return keyword for single-line expressions.
+	•	Commonly used in callbacks.
+	•	Promises: A way to handle asynchronous operations.
+	•	Promise states: pending, fulfilled, and rejected.
+	•	resolve and reject are parameters used to handle the completion status.
+	•	Class: Introduced object-oriented programming features.
+	•	Built on JavaScript prototypes, enabling inheritance and encapsulation.
+	•	Classes use a constructor for initializing new objects.
+	•	this keyword refers to the current instance, and new creates new instances.
+	•	Inheritance: Classes can inherit properties/methods from other classes (superclass/subclass).
+	•	super calls the superclass constructor in subclasses.
+	3.	Usage in JavaScript
+	•	ES6 features are compatible with frameworks like React.
+	•	Enhanced syntax and tools in ES6 facilitate code organization, readability, and scalability.
+
+	JSX Overview
+
+	1.	Definition
+	•	JSX stands for JavaScript Syntax Extension, also called JavaScript XML.
+	•	It combines HTML-like syntax with JavaScript expressions, making UI building more intuitive.
+	2.	Syntax and Usage
+	•	JSX syntax resembles XML/HTML, with elements in angle brackets (< >), showing UI structure.
+	•	JSX is used to create React elements, rendered into the DOM by React.
+	•	Browsers don’t recognize JSX directly; it must be compiled with Babel to convert it to standard JavaScript objects.
+	3.	Compilation with Babel
+	•	Babel translates JSX into JavaScript, making it readable for JavaScript engines.
+	•	The create-react-app command can handle JSX compilation automatically.
+	4.	Advantages of JSX
+	•	Readability: Easier to understand, especially for those familiar with HTML.
+	•	Error Detection: Compilation catches errors early.
+	•	Code Simplification: Keeps code elegant and organized with inline styling options.
+	•	Performance: Optimized for faster execution during translation.
+	•	Security: Automatically sanitizes output to prevent embedded scripts from executing.
+	5.	JSX vs. JavaScript Function Calls
+	•	JSX syntax is cleaner, closer to HTML, and easier to read compared to equivalent JavaScript function calls.
+	•	Regular JavaScript function calls for the same purpose are harder to read and maintain.
+	6.	Summary
+	•	JSX reads like HTML but allows JavaScript expressions within it.
+	•	Benefits of JSX include enhanced readability, error handling, performance optimization, and security.
+
+	Notes: Introduction to Components in React
+
+Overview of React Components:
+
+	1.	Definition: Modular chunks of code used to build React applications.
+	2.	Purpose: Simplify complex UIs by dividing them into manageable, reusable pieces.
+	3.	Rendering: Components are merged to form the main UI the user sees.
+
+Features of React Components:
+
+	•	Break down UI into separate, independent elements.
+	•	Accept optional input and return a React object for rendering.
+	•	Can manage UI updates through “state changes.”
+
+Component Structure in React:
+
+	1.	Properties (Props):
+	•	Store and pass data from parent to child components.
+	2.	Events:
+	•	Manage the DOM based on user interaction.
+	3.	States:
+	•	Track and manage UI updates within the component.
+
+Types of React Components:
+
+	1.	Functional Components:
+	•	Defined as JavaScript functions, taking arguments and returning JSX.
+	•	Initially stateless but now can manage state using hooks (introduced in React 16.8).
+	•	Preferred for simplicity and ease of testing.
+	•	Example:
+
+function DemoComponent() {
+  return <h1>Welcome Message</h1>;
+}
+
+
+	2.	Class Components:
+	•	Built using ES6 classes, allowing data sharing between class components.
+	•	Utilize React-specific functions: state, props, and lifecycle methods.
+	•	Complex and less preferred post-React 16.8 due to the availability of hooks.
+	3.	Higher-Order Components (HOC):
+	•	Allow reuse of component logic by taking a component as input and returning a new component with additional features.
+
+Key Points Recap:
+
+	•	React components modularize the UI into reusable parts, managing events, rendering, and state.
+	•	Three component types: functional, class, and higher-order
+
