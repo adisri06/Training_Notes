@@ -207,3 +207,202 @@ Key Points Recap:
 	•	React components modularize the UI into reusable parts, managing events, rendering, and state.
 	•	Three component types: functional, class, and higher-order
 
+Working with Function Components, Props, and Event Handling in React
+
+Key Concepts:
+
+	•	Props in Function Components:
+	•	Properties in function components are called props.
+	•	Purpose: Props pass data from a parent component to its child, enabling data flow and customization of child components.
+	•	Nature: Props are immutable—data within them is read-only in the child component and cannot be modified.
+	•	Basic Usage of Props:
+	•	Props work similarly to objects, holding attributes for a component.
+	•	Example:
+	•	In a component App, data is passed as a prop (e.g., name="John") to the child component EmployeeData.
+	•	In EmployeeData, props are accessed using props.name.
+	•	Props can also be dynamically passed with curly braces {} for variables (e.g., employee_id).
+	•	Default Props:
+	•	Default values can be defined for props, providing fallback values if the parent component does not pass them.
+	•	Example: EmployeeData has a default value of "Human Resources" for the dept_name prop if not explicitly provided.
+	•	Principles of Props:
+	•	Reusability: Props allow variations of the same component without duplicating code.
+	•	Unidirectional Data Flow: Data flows in one direction, making the app structure predictable and error tracing easier.
+	•	Customization: Components can adapt their behavior and appearance based on prop values.
+	•	Composition: Props help in composing complex UIs from simpler components through organized data flow and interaction.
+
+Event Handling with Props:
+
+	•	Example with useState Hook and Event:
+	•	Props can be used alongside event handling to control component behavior dynamically.
+	•	useState Hook: Manages the showIncrease state to track whether salary increase information should display.
+	•	onClick Event:
+	•	Triggers an arrow function to toggle showIncrease state.
+	•	Conditional rendering is achieved using &&, so when showIncrease is true, the salary increase value is shown.
+	•	UI Changes on Event:
+	•	When the user clicks a button, it updates the showIncrease state and displays additional information accordingly.
+
+Summary Points:
+
+	•	Props store component attributes and enable data flow from parent to child.
+	•	Props principles include reusability, unidirectional data flow, customization, and composition.
+	•	Using useState with event handlers enables responsive and interactive UI updates.
+
+React Component Composition
+
+	•	Purpose:
+	•	Component composition combines small, reusable components to build complex UIs, enhancing modularity and maintainability.
+	•	Principles of Component Composition:
+	•	Abstraction: Encapsulate UI features into reusable components, breaking down complex UIs into manageable chunks.
+	•	Reusability: Avoid code duplication by reusing components across different parts of the application.
+	•	Hierarchy: Arrange components in a parent-child structure for organized, modular design.
+	•	Props and Children: Pass data from parent to child components; child components inherit data or other components via props.
+	•	Higher-Order Components (HOCs): Functions that accept components as input or return enhanced components with added functionality (e.g., state or logic).
+	•	Example: Blog Post for Novels:
+	•	Individual Components:
+	•	Title, Author, Type, Description: Each component encapsulates a specific feature and follows a consistent structure:
+	•	Import React, define function, format content, and export the component.
+	•	Higher-Order Component (NovelBlog):
+	•	Combines individual components to create a full blog post structure.
+	•	Imports and arranges components (Title, Author, Type, Description) with styling.
+	•	Main Application Component:
+	•	Imports and composes the NovelBlog component, supplying data for title, author, description, and type.
+	•	Summary:
+	•	Use component composition to combine smaller, reusable components for complex UIs.
+	•	Key principles: abstraction, reusability, hierarchy, props and children, HOCs.
+
+State Management in Functional Components (React)
+
+Introduction to State Management
+
+	•	State management controls data changes within a React component.
+	•	Previously, React couldn’t manage state in function components until hooks were introduced.
+	•	Now, function components handle local state via the useState hook, enabling reusable logic without altering the component hierarchy.
+
+useState Hook Overview
+
+	•	useState allows state management in functional components.
+	•	Returns an array with:
+	•	A state variable for the current state.
+	•	A function to update this state variable.
+	•	Syntax:
+
+const [stateName, setStateName] = useState(initialState);
+
+	•	stateName: holds the current state value.
+	•	setStateName: function to update the stateName.
+
+Example: State Management with useState
+
+	1.	Basic Setup:
+	•	Create a component StateManagement using useState for the name state.
+	•	Initialize name to “John” and update to “John Doe” upon button click.
+	2.	Rendering the Component:
+	•	Displays an <h1> title and a paragraph with the current name state.
+	•	Includes a button with an onClick event to trigger setName("John Doe"), updating the name.
+
+Example: Toggle Component with useState
+
+	1.	ToggleMessage Component:
+	•	Manages visibility of a message using isVisible state.
+	•	Toggle button changes visibility by setting isVisible to !isVisible.
+	2.	Rendering Toggle:
+	•	Shows button text as “Hide message” if isVisible is true; otherwise, “Show message.”
+	•	Conditionally displays a message based on isVisible’s value.
+
+Summary
+
+	•	State management helps manage and reflect dynamic data within components.
+	•	useState provides a clean way to handle state in functional components.
+	•	Key uses include making components interactive and managing conditional rendering.
+
+Function Component Lifecycle in React
+
+
+	•	Functional components are the core of React UI development.
+	•	Although lacking traditional lifecycle methods (as in class components), hooks (e.g., useState, useEffect) allow similar lifecycle management.
+
+Lifecycle Phases of Functional Components
+
+	1.	Mounting Phase
+	•	React initializes and prepares the component for rendering.
+	•	Key steps:
+	•	Initialization: Function body runs, setting up the component structure.
+	•	State Initialization: useState sets up state variables (e.g., count initialized to 0).
+	•	Side Effects: useEffect with an empty dependency array runs side effects (e.g., data fetching, DOM manipulation) once after the initial render.
+	•	Example: useEffect fetches data on mount from an API and sets it in the component’s state.
+	2.	Updating Phase
+	•	React re-invokes the function component when state or props change, allowing UI updates.
+	•	React re-evaluates JSX to determine new UI.
+	•	Example: In myComponent, count is incremented on button click, triggering a re-render with updated UI.
+	3.	Unmounting Phase
+	•	React cleans up resources (e.g., event listeners, timers) when the component is removed from the DOM.
+	•	Example: useEffect sets up an interval timer; a cleanup function clears it on unmount to prevent memory leaks.
+	4.	Error Handling Phase
+	•	Errors during rendering or lifecycle methods in child components are caught by error boundaries.
+	•	Error boundaries display fallback UI, isolating the error without affecting the rest of the application.
+
+Summary
+
+	•	React’s lifecycle for function components includes:
+	•	Mounting: Sets initial state, runs side effects.
+	•	Updating: Handles state/prop changes, updates UI.
+	•	Unmounting: Cleans up resources to prevent memory leaks.
+	•	Error Handling: Uses error boundaries for graceful error management.
+
+Testing React Components
+
+	1.	Purpose of Testing
+	•	Testing reviews code line-by-line to verify correct execution.
+	•	Ensures application runs smoothly without errors.
+	•	Advantages:
+	•	Prevents regression (reoccurrence of bugs).
+	•	Allows developers to focus on current tasks.
+	•	Enables modular application construction.
+	•	Reduces the need for manual verification.
+	•	Disadvantages:
+	•	Involves writing, debugging, and maintaining additional code.
+	•	Non-critical test failures might impact CI processes.
+
+	2.	Types of Testing in React
+	•	Unit Testing:
+	•	Tests isolated parts/components.
+	•	Uses shallow rendering.
+	•	Example: Rendering a component with default properties.
+	•	End-to-End Testing:
+	•	Tests entire application flows in a simulated browser environment.
+	•	No UI is required during tests.
+	•	Example: Testing an authentication flow.
+
+	3.	Testing Workflow (Arrange-Act-Assert)
+	•	Arrange: Set up component properties.
+	•	Act: Render the component, trigger user actions.
+	•	Assert: Verify outcomes and side effects on the component.
+
+	4.	Considerations When Choosing Testing Tools
+	•	Speed vs. Environment: Some tools prioritize speed but lack precise browser behavior, while others use real browser environments with slower feedback loops.
+	•	Mocking: Important to decide which parts to mock in unit vs. integration tests.
+
+	5.	Testing Libraries in the React Ecosystem
+	•	Mocha, Chai, Sinon: Used with Node.js applications for tests.
+	•	Mocha: Test runner.
+	•	Chai: Assertion library.
+	•	Sinon: Provides mocks, stubs, and spies.
+	•	Jest: Comprehensive testing library by Facebook.
+	•	Test runner, assertion library, mocks, and spies.
+	•	Features:
+	•	jsdom: Access DOM for component testing.
+	•	Snapshot Testing: Verifies component rendering results.
+	•	CLI for test execution.
+	•	React Testing Library:
+	•	Utility functions built on react-dom and react-dom/test-utils.
+	•	Encourages tests that align with end-user interactions.
+	•	Replaces Enzyme for testing React components.
+	•	Accessible querying for DOM elements, facilitating label- and text-based querying.
+	•	Encourages accessibility and emulates end-user component usage.
+	
+	6.	Testing Best Practices
+	•	Render components virtually using render() from React Testing Library.
+	•	Access rendered HTML through screen for assertions.
+	•	Aim for tests that emulate actual user interactions to increase confidence.
+
+
