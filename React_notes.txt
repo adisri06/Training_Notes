@@ -405,4 +405,364 @@ Testing React Components
 	•	Access rendered HTML through screen for assertions.
 	•	Aim for tests that emulate actual user interactions to increase confidence.
 
+Arrays in React:
+
+1. Defining Arrays in React
+
+	•	Concept: Arrays are a fundamental JavaScript data structure for storing multiple values. In React, they are essential for managing lists of data dynamically.
+	•	Example:
+
+const seasons = ['autumn', 'spring', 'summer', 'winter'];
+
+2. Using Arrays in Component State
+
+	•	Concept: Arrays can be stored in React’s component state using the useState hook, making it easy to add or remove items dynamically.
+	•	Example:
+
+const [items, setItems] = useState(['autumn', 'spring', 'summer', 'winter']);
+
+3. Traversing Arrays in React Components
+
+	•	Methods:
+	•	map: Returns a new array with JSX elements for each item.
+	•	forEach: Executes a function on each item without returning a new array.
+	•	for...of: Iterates directly over array elements.
+	•	Example:
+
+items.map((season, index) => <li key={index}>{season}</li>);
+
+4. Rendering Lists with JSX and Array Methods
+
+	•	Concept: Arrays are often used to render lists in React. Use map to create JSX elements for each item in an array.
+	•	Example:
+
+const SeasonList = () => (
+  <div>
+    <h1>Season Names</h1>
+    <ul>
+      {items.map((season, index) => (
+        <li key={index}>{season}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+5. Adding and Removing Items from Arrays
+
+	•	Concept: Use setState to modify arrays in state, such as adding items with push and removing with splice.
+	•	Example:
+
+// Adding items
+const addItem = () => setItems([...items, newItem]);
+
+// Removing items by index
+const removeItem = (index) => {
+  const newItems = [...items];
+  newItems.splice(index, 1);
+  setItems(newItems);
+};
+
+6. Conditional Rendering Based on Array Content
+
+	•	Concept: Use conditional rendering in React to display different content based on the array’s state.
+	•	Example:
+
+{items.length > 0 ? (
+  <ul>
+    {items.map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
+  </ul>
+) : (
+  <p>No items available</p>
+)}
+
+
+7. Key Takeaways
+
+	•	Common Methods: map, forEach, push, and splice.
+	•	State & Dynamic Updates: useState for managing lists dynamically within React components.
+	•	Conditional Rendering: Render content conditionally based on the array’s length or content.
+
+
+Virtual DOM in React
+
+	1.	DOM Overview:
+	•	Definition: The Document Object Model (DOM) represents an HTML structure as a tree-like structure.
+	•	Components: Nodes (element, text, attribute), elements (HTML building blocks), attributes (element properties/styles), and events (JavaScript response triggers).
+	•	Purpose: Allows dynamic manipulation of document content, structure, and style.
+	2.	Virtual DOM Overview:
+	•	Definition: A memory-based abstraction of the actual DOM.
+	•	Purpose: Optimizes web application performance, synchronizing with the real DOM via React’s reconciliation.
+	3.	How Virtual DOM Works:
+	•	Initial Render: A virtual DOM model is created when a React component first renders.
+	•	Updating Process: On state or prop changes, React:
+	•	Creates a new virtual DOM.
+	•	Uses a diffing algorithm to identify minimal updates needed.
+	•	Applies updates to the real DOM in a batched and efficient way.
+	4.	Advantages of Virtual DOM:
+	•	Performance: Reduces frequency of direct DOM changes, resulting in faster applications.
+	•	Declarative Development: Simplifies code with declarative syntax, handling DOM manipulation behind the scenes.
+	•	Cross-Platform Compatibility: Works efficiently on web browsers and mobile devices.
+	•	State Management: Works with state changes, enabling optimized updates and re-renders.
+	•	Debugging and Testing: Simplifies testing and debugging using the virtual DOM view.
+	5.	Comparison: Normal DOM vs. Virtual DOM:
+	•	Normal DOM: Directly interacts with the browser’s rendering engine, re-rendering with each change.
+	•	Virtual DOM: Exists in memory, updates are batched, reducing transitions and improving efficiency.
+	•	Efficiency: Virtual DOM only applies necessary updates, reducing reflows and repaints.
+	6.	Example in React:
+	•	Components: App (parent), FirstChild, and SecondChild.
+	•	Behavior: Updating one item in FirstChild does not trigger a re-render of App or SecondChild.
+	•	Outcome: Demonstrates efficient re-rendering with React’s virtual DOM, updating only the affected component.
+	7.	Key Takeaway:
+	•	Virtual DOM in React enhances performance by updating only necessary parts of the DOM, essential in scenarios where selective component updating is beneficial.
+
+Cheat Sheet 
+1. Function Component with function keyword
+Function component starts with function keyword along with name of the component and includes html tags within return. It also exports component name by default
+import React from 'react'
+
+function Extra() {
+  return (
+    <>
+    <p>This is paragraph</p>
+    </>
+  )
+}
+
+export default Extra
+
+Function Component with arrow function
+Function component starts with variable type along with name of the component and includes html tags within return. It also exports component name by default
+import React from 'react'
+const Extra = () => {
+  return (
+    <div>Extra</div>
+  )
+}
+export default Extra
+
+Props in function component
+Props can be sent from parent component as attribute along with child component
+import React from 'react'
+import ChildComponent from './ChildComponent'
+function ParentComponent () {
+    let title='Project Manager';
+    return (
+    <>
+    <ChildComponent title={title}/>
+    </>
+  )
+}
+export default ParentComponent
+
+Access Props within child function component
+Props can be accessed easily within the child function component using props.variable_name
+import React from 'react'
+
+const ChildComponent = (props) => {
+  return (
+    <>
+    <p>The title is {props.title}</p>
+    </>
+  )
+}
+
+export default ChildComponent
+
+Event handling in class component
+Events such as click event can be performed by calling function which is declared before return of function component
+import React from 'react'
+const Extra = (props) => {
+    function show(){
+        console.log('Show function');
+    }
+  return (
+    <>
+    <p>The title is {props.title}</p>
+    <button onClick={()=>show()}>Click Here</button>
+    </>
+  )
+}
+export default Extra
+
+State management in function component
+State management can be done easily with useState() hook
+import React, { useState } from 'react'
+
+const StateManagement = () => {
+    const[name,setName]=useState('John');
+  return (
+   <>
+   <h1>State Management using useState</h1>
+    <p>The name is {name}</p>
+   </>
+  )
+}
+export default StateManagement
+
+Stateful Array
+Array can be declared using useState	
+const [todos, setTodos] = useState(['Learn React', 'Build Project']);
+
+Array map() method
+The map() method is commonly used to iterate over each element of an array and return a new array of React elements
+const items = ['Apple', 'Banana', 'Orange'];
+const itemList = items.map((item, index) => <li key={index}>{item}</li>);
+return <ul>{itemList}</ul>;
+
+Rendering a List of Items
+You can render a list of items by mapping over an array and returning a JSX element for each item
+import React from 'react';
+function ArrayComponent() {
+  const items = ['Autumn', 'Spring', 'Summer','Winter'];
+  return (
+    <div>
+      <h1> Seasons Names</h1>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+  </ul>
+    </div>
+  );
+}
+export default ArrayComponent;
+
+Conditional rendering using ternary operator
+You can conditionally render components based on the content of an array
+import React, { useState } from 'react';
+function ArrayComponent() {
+    const [items, setItems] = useState(['React JS','Vue JS','Angular JS','Vanilla JS']);
+  return (
+    <div>
+      <h1>Front End Languages</h1>
+      {items.length > 0 ? (
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No Front End language is available</p>
+      )}
+    </div>
+  );
+}
+export default ArrayComponent;
+
+| Term                        | Description                                                                                                                |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| Document object model (DOM) | An interface for web pages and documents used to represent an HTML structure as a tree-like structure.                  |
+| Higher-order component 	  | A function that allows you to add components' features, such as state management or logic, without modifying its implementation. |
+| Hook                  	  | A function that enables you to reuse code logic across components without changing component hierarchy or introducing unnecessary nesting. |
+| Initialization              | A step in which React runs the function body of the functional component, setting up the initial structure and behavior of the component. |
+| Props Default               | Is default value for props using defaultProps. This ensures that if a prop is not provided, the component will still render with the default value, enhancing predictability and robustness in component behavior. |
+| Properties (props)          | A fundamental concept in React for passing data from parent to child components. They enable communication and customization between different parts of a React application. |
+| Side effects                | A step that includes data fetching, subscriptions, or DOM manipulation using the 'useEffect' hook with an empty dependency array. |
+| Updating phase              | A functional component lifecycle phase in which React responds to changes in the component's state or props by re-invoking the function body of the component. |
+| Unmounting phase            | A functional component lifecycle phase in which React executes cleanup operations when removing a component from the DOM. |
+| Virtual DOM                 | An abstraction of the actual DOM implemented in memory and is kept in sync with the real DOM by React's reconciliation process. |
+
+React Hooks (Extended with useEffect and Custom Hooks)
+
+	1.	Purpose of Hooks:
+	•	Introduced in React v16.8 to simplify state management and lifecycle handling in functional components, eliminating the need for class components.
+	•	Hooks make functional components as powerful as class components, reducing code complexity.
+
+	2.	Advantages of Hooks:
+	•	Readability & Maintainability: Improved readability and smaller, manageable code chunks.
+	•	Optimized UI Behaviors: Enable complex behaviors in UI with simplified code.
+	•	Performance Boost: Enhances component performance.
+	•	Event Handling: Simplifies event handling and logic without needing classes.
+	•	Code Reusability: Custom hooks allow reuse of logic across multiple components.
+
+	3.	Best Practices for Using Hooks:
+	•	Hooks are exclusive to functional components.
+	•	Must be called at the top level of a component, not within loops, conditions, or nested functions.
+	•	Environment Requirements: Requires Node.js v6+ and NPM v5.2+; create-react-app is recommended for setup.
+
+	4.	Commonly Used Standard Hooks:
+	•	useState: Manages local component state, allowing state updates and reactivity.
+	•	useEffect: Handles side effects like data fetching, subscriptions, and document manipulation.
+	•	useContext: Provides access to context values across a React component tree.
+	•	useReducer: Simplifies state management similar to Redux, with dispatching actions and maintaining state.
+
+	5.	useEffect and Side Effects:
+	•	Definition: useEffect is a React hook that lets functional components perform side effects, such as fetching data, updating the DOM, or setting up event listeners.
+	•	Side Effects: Refers to actions executed after component load, such as API calls, event subscriptions, or timers.
+	•	Example: A component with useEffect can fetch a list of food items from an API when the component mounts, update the state, and render the data dynamically.
+	
+	6.	useEffect Dependencies:
+	•	Dependency Array: Controls when useEffect runs.
+	•	Empty Array: Runs only once, on the first component load (good for initial setup like fetching data).
+	•	Specific Dependencies: Runs when any listed dependency changes, triggering re-renders based on these changes.
+	•	No Array: Runs on every render, including initial load and each subsequent re-render, which can lead to performance issues in some cases.
+	
+	7.	Custom Hooks:
+	•	Definition: Custom hooks are reusable functions prefixed with ‘use’ that abstract complex logic to be reused across multiple components.
+	•	Example: Toggle Button: A custom hook (useToggle) is used to manage a toggle state (true/false) in multiple components, providing a simple way to create toggle functionality.
+	•	Reusability: Custom hooks make it easy to implement repetitive logic consistently across an app.
+	
+	8.	Example of useState and useEffect Combined:
+	•	useState to initialize and manage state (e.g., foods array).
+	•	useEffect to perform an asynchronous API fetch, parse the response, update the state, and display the data dynamically in the component.
+	
+	9.	Key Takeaway:
+	•	Hooks provide functional components with class component capabilities, enabling concise, reusable, and efficient code in React applications. Use useEffect for side effects, dependencies to control re-renders, and custom hooks for shared logic.
+
+Notes on Connecting React to External Services
+
+	•	External Services
+External services are programs, platforms, or infrastructures that allow your application to interact with other applications over a network. These services are usually hosted outside your application’s environment and provide features or tools your application may need.
+	•	APIs (Application Programming Interfaces)
+APIs allow your application to exchange data with external services. Third-party services typically provide APIs that let you retrieve data, perform operations, or add features to your application.
+	•	Fetching Data Using API
+	•	Fetch API
+	•	The fetch() method is used to send HTTP requests to an external service.
+	•	Example Process:
+	1.	API URL: Store the URL of the API in a constant variable.
+	2.	Fetching Data: Use fetch() with the URL to send a GET request to the external service.
+	3.	Handling Response:
+	•	Use .then() to handle the successful response.
+	•	Call response.json() to parse the response into JSON.
+	•	Chain another .then() to handle the parsed JSON data and perform actions like logging it to the console.
+	4.	Error Handling: Use .catch() to handle errors during the fetch process. Log the error to the console for debugging.
+Code Example:
+
+const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+fetch(apiUrl)
+  .then(response => response.json()) // Parse response body as JSON
+  .then(data => console.log(data))    // Handle parsed data
+  .catch(error => console.error("Error fetching data:", error)); // Handle errors
+
+
+	•	Axios
+Axios is a popular JavaScript library for handling HTTP requests. It simplifies the process and provides features like automatic JSON parsing.
+	•	Installing Axios: npm install axios
+	•	Usage: Import Axios and use the .get() method to make GET requests.
+	•	Features:
+	•	Automatically parses the response into JSON.
+	•	Provides a .then() method to handle the successful response and access the data via response.data.
+	•	Provides a .catch() method for error handling.
+Code Example:
+
+import axios from 'axios';
+const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+axios.get(apiUrl)
+  .then(response => {
+    console.log(response.data); // Access response data directly
+  })
+  .catch(error => {
+    console.error("Error fetching data:", error); // Handle errors
+  });
+
+
+	Key Differences Between Fetch API and Axios
+	•	Axios automatically handles JSON parsing, whereas with the Fetch API, you need to manually call response.json().
+	•	Axios has a simpler syntax and handles many HTTP-related features internally (e.g., request creation, response parsing).
+	
+	•	Conclusion
+	•	External services, through APIs, allow your application to interact with other systems, retrieve data, and add features.
+	•	Both the Fetch API and Axios library allow you to retrieve data from third-party services, but Axios offers additional features and is often simpler to use for HTTP requests.
 
