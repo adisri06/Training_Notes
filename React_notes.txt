@@ -1067,9 +1067,47 @@ Redux Toolkit:
 	•	CounterSlice.jsx: Contains reducer logic and associated action creators (e.g., increment, decrement).
 	•	Store.jsx: Configures the Redux store with the configureStore function, using the counterReducer from CounterSlice.
 	•	Main.jsx: Entry point, wraps the App component with the Provider component from React Redux, passing in the Redux store as a prop.
-	
+
 	8.	Key Takeaways:
 	•	RTK simplifies Redux development in React applications.
 	•	The configureStore function combines setup logic, reducing boilerplate.
 	•	The createSlice function defines state logic more efficiently, handling immutable updates automatically.
 	•	Slices manage parts of application state, and the store combines them into the overall state tree.
+
+Cheat Sheet Specific to Redux:
+
+| Term                        | Description                                                                                                                |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| Action creator              | A function that generates an action object with a type property and optional data (payload) to describe an event or change. |
+| Actions in Redux            | Objects that carry information about what happened, used to send data from the app to the Redux store for state updates.   |
+| Application state           | Represents the complete data structure or condition of the application at a given point in time.                           |
+| Asynchronous or async code  | Code that allows tasks to run independently of each other, enabling operations like data fetching without blocking other tasks. |
+| Axios                       | A popular library used to make HTTP requests for data fetching or sending, often used for APIs in web applications.         |
+| combineReducers ()          | A function that merges multiple smaller reducer functions into a single root reducer, streamlining state management.       |
+| createSlice ()              | Part of Redux Toolkit, this function helps define state slices and reducers with auto-generated action creators.           |
+| configureStore ()           | A function in Redux Toolkit that simplifies the process of creating and setting up a Redux store with good defaults.       |
+| Controlled component        | A form input element in React where component state controls its value, making state updates explicit through code.        |
+| Custom hook                 | A user-defined function that leverages React hooks to create reusable stateful logic across components.                    |
+| fetch                       | A built-in JavaScript API to make network requests, commonly used for retrieving or sending data asynchronously.           |
+| Fields                      | Input areas in forms where users can enter or interact with data.                                                          |
+| Forms                       | Interfaces that collect user input, enabling data interaction or submission on web pages.                                  |
+| getState ()                 | A method provided by the Redux store to retrieve the current state object.                                                 |
+| Hook                        | Special functions in React that let you use state and other React features without writing classes.                        |
+| Payload property            | Extra data sent with an action, providing context or information needed to handle that action.                             |
+| Reducers in Redux           | Pure functions that take the current state and an action, then return a new state based on that action.                    |
+| Redux                       | A predictable state management library that centralizes app state, enabling consistent data flow between components.       |
+| Redux store                 | A single source of truth for application state in Redux, managing state, actions, and logic.                               |
+| Redux Saga                  | Middleware for handling side effects like async operations using functions (sagas) that make asynchronous code declarative.|
+| Redux Thunk                 | A middleware allowing Redux actions to return functions, enabling delayed or conditional dispatch logic.                   |
+| Redux Toolkit (RTK)         | An official package that simplifies and streamlines Redux development, providing utilities for common tasks.               |
+| Side effects                | Operations triggered during component rendering, like fetching data, that need special handling outside main logic flow.   |
+| Slice                       | A portion of Redux state managed with its own reducers and actions, created easily using Redux Toolkit.                    |
+| Store in RTK                | The central state management object that combines all slices and tracks application state.                                |
+| Subscription                | Mechanism in Redux that allows components to automatically receive state updates when the store changes.                   |
+| Synchronous or sync code    | Code executed sequentially, where each task waits for the previous one to finish before proceeding.                        |
+| Type property               | A string identifier for an action, describing what kind of change it represents.                                           |
+| Uncontrolled component      | A form element managed mostly by the browser, with React only setting its initial value.                                   |
+| useContext hook             | A React hook for accessing and managing shared state across deeply nested components without prop drilling.                |
+| useEffect hook              | A React hook for managing side effects, such as data fetching or DOM manipulation, during component lifecycle changes.     |
+| useReducer hook             | A React hook similar to Redux reducers, enabling complex state logic management within functional components.              |
+| useState hook               | A React hook that lets you add state to function components, tracking values that can change over time.                    |
